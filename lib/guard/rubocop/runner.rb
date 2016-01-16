@@ -1,6 +1,7 @@
 # coding: utf-8
 
 require 'json'
+require 'rubocop'
 
 module Guard
   class RuboCop
@@ -13,7 +14,8 @@ module Guard
 
       def run(paths = [])
         command = build_command(paths)
-        passed = system(*command)
+        command.shift
+        passed = ::RuboCop::CLI.new.run(command)
 
         case @options[:notification]
         when :failed
