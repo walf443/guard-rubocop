@@ -11,26 +11,26 @@ describe Guard::RuboCop::Runner do
     let(:paths) { ['spec/spec_helper.rb'] }
 
     before do
-      allow(runner).to receive(:system)
+      allow(runner).to receive(:run_rubocop_cli)
     end
 
     it 'executes rubocop' do
-      expect(runner).to receive(:system) do |*args|
-        expect(args.first).to eq('rubocop')
+      expect(runner).to receive(:run_rubocop_cli) do |*args|
+        expect(args.first[0]).to eq('rubocop')
       end
       runner.run
     end
 
     context 'when RuboCop exited with 0 status' do
       before do
-        allow(runner).to receive(:system).and_return(true)
+        allow(runner).to receive(:run_rubocop_cli).and_return(true)
       end
       it { should be_truthy }
     end
 
     context 'when RuboCop exited with non 0 status' do
       before do
-        allow(runner).to receive(:system).and_return(false)
+        allow(runner).to receive(:run_rubocop_cli).and_return(false)
       end
       it { should be_falsey }
     end
@@ -52,7 +52,7 @@ describe Guard::RuboCop::Runner do
     shared_examples 'notification' do |expectations|
       context 'when passed' do
         before do
-          allow(runner).to receive(:system).and_return(true)
+          allow(runner).to receive(:run_rubocop_cli).and_return(true)
         end
 
         if expectations[:passed]

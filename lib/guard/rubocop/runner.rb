@@ -2,6 +2,7 @@
 
 require 'json'
 require 'rubocop'
+require 'benchmark'
 
 module Guard
   class RuboCop
@@ -14,8 +15,7 @@ module Guard
 
       def run(paths = [])
         command = build_command(paths)
-        command.shift
-        passed = ::RuboCop::CLI.new.run(command)
+        passed = run_rubocop_cli(command)
 
         case @options[:notification]
         when :failed
@@ -25,6 +25,20 @@ module Guard
         end
 
         passed
+      end
+
+      def run_rubocop_cli(command)
+        _cmd, options = command.dup
+
+        cli = ::RuboCop::CLI.new
+        result = 0
+
+        time = Benchmark.realtime do
+            result = cli.run(options)
+        end
+
+        puts "Finished in #{time} seconds" if cli.options[:debug]
+        result == 0
       end
 
       def build_command(paths)
