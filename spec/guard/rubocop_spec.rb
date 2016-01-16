@@ -134,9 +134,9 @@ describe Guard::RuboCop, :silence_output do
       it 'passes cleaned paths to rubocop' do
         expect_any_instance_of(Guard::RuboCop::Runner).to receive(:run) do |_instance, paths|
           expect(paths).to eq([
-            File.expand_path('lib/guard/rubocop.rb'),
-            File.expand_path('spec/spec_helper.rb')
-          ])
+                                File.expand_path('lib/guard/rubocop.rb'),
+                                File.expand_path('spec/spec_helper.rb')
+                              ])
         end
         subject
       end
@@ -173,9 +173,9 @@ describe Guard::RuboCop, :silence_output do
           guard.failed_paths << failed_path
           expect_any_instance_of(Guard::RuboCop::Runner).to receive(:run) do |_instance, paths|
             expect(paths).to eq([
-              File.expand_path('lib/guard/rubocop.rb'),
-              File.expand_path('spec/spec_helper.rb')
-            ])
+                                  File.expand_path('lib/guard/rubocop.rb'),
+                                  File.expand_path('spec/spec_helper.rb')
+                                ])
           end
           subject
         end
@@ -202,9 +202,9 @@ describe Guard::RuboCop, :silence_output do
         'spec/spec_helper.rb'
       ]
       expect(clean_paths(paths)).to eq([
-        File.expand_path('lib/guard/rubocop.rb'),
-        File.expand_path('spec/spec_helper.rb')
-      ])
+                                         File.expand_path('lib/guard/rubocop.rb'),
+                                         File.expand_path('spec/spec_helper.rb')
+                                       ])
     end
 
     it 'removes duplicated paths' do
@@ -214,9 +214,9 @@ describe Guard::RuboCop, :silence_output do
         'lib/guard/../guard/rubocop.rb'
       ]
       expect(clean_paths(paths)).to eq([
-        File.expand_path('lib/guard/rubocop.rb'),
-        File.expand_path('spec/spec_helper.rb')
-      ])
+                                         File.expand_path('lib/guard/rubocop.rb'),
+                                         File.expand_path('spec/spec_helper.rb')
+                                       ])
     end
 
     it 'removes non-existent paths' do
@@ -226,9 +226,9 @@ describe Guard::RuboCop, :silence_output do
         'spec/spec_helper.rb'
       ]
       expect(clean_paths(paths)).to eq([
-        File.expand_path('lib/guard/rubocop.rb'),
-        File.expand_path('spec/spec_helper.rb')
-      ])
+                                         File.expand_path('lib/guard/rubocop.rb'),
+                                         File.expand_path('spec/spec_helper.rb')
+                                       ])
     end
 
     it 'removes paths which are included in another path' do
@@ -238,9 +238,9 @@ describe Guard::RuboCop, :silence_output do
         'spec'
       ]
       expect(clean_paths(paths)).to eq([
-        File.expand_path('lib/guard/rubocop.rb'),
-        File.expand_path('spec')
-      ])
+                                         File.expand_path('lib/guard/rubocop.rb'),
+                                         File.expand_path('spec')
+                                       ])
     end
   end
 

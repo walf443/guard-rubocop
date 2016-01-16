@@ -34,7 +34,7 @@ module Guard
         result = 0
 
         time = Benchmark.realtime do
-            result = cli.run(options)
+          result = cli.run(options)
         end
 
         puts "Finished in #{time} seconds" if cli.options[:debug]
