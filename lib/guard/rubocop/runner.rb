@@ -28,7 +28,7 @@ module Guard
       end
 
       def run_rubocop_cli(command)
-        _cmd, options = command.dup
+        _cmd, *options = command
 
         cli = ::RuboCop::CLI.new
         result = 0
